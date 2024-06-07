@@ -3,5 +3,6 @@
         "array": "cpp",
         "string_view": "cpp",
         "type_traits": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "enabled"
 }

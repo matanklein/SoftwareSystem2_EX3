@@ -4,12 +4,18 @@
 #define empty 0
 #define available 1
 
-#define forest 2
-#define hill 3
-#define mountain 4
+#define forest 0
+#define hill 1
+#define mountain 2
+#define pasture 3
+#define field 4
 #define desert 5
-#define pasture 6
-#define field 7
+
+#define wood 0
+#define brick 1
+#define iron 2
+#define oat 3
+#define wool 4
 
 #define settlement 1
 #define city 2
