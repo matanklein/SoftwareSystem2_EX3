@@ -1,25 +1,21 @@
 #include <vector>
 #include "Cross.hpp"
 #include "Path.hpp"
-#include "Catan.hpp"
 #include "Definition.hpp"
+
+using namespace std;
 
 class Plot{
     private:
-        std::vector<catan::Cross> crossSections;
-        std::vector<catan::Path> pathes;
+        vector<Cross> crossSections;
+        //vector<catan::Path> pathes;
         int numberCircle;
         int type;
         bool hasRobber;
+        //bool isNearSea;
     public:
         Plot();
-        Plot(int numberCircle, int type): numberCircle(numberCircle), type(type){
-            if(type == desert){
-                hasRobber = true;
-            }else{
-                hasRobber = false;
-            }
-        };
+        void setData(int numberCircle, int type, vector<Cross> crossSections);
         ~Plot();
         /**
          * @brief Adds a cross to the plot
@@ -32,7 +28,7 @@ class Plot{
          * 
          * @param path 
          */
-        void addPath(path path);
+        void addPath(catan::Path path);
         /**
          * @brief Gets cube roll and gives resources to players 
          * if they have a settlement or city on the plot and the plot has the same numberCircle as the roll.

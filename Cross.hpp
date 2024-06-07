@@ -1,20 +1,18 @@
+#include <vector>
+#include "Definition.hpp"
 #include "Player.hpp"
-#include "Catan.hpp"
+using namespace std;
 
-namespace catan
+class Cross
 {
-    class Cross
-    {
-    private:
-        Player& owner;
-        int type;
-        int numberOfPlot;
-        int number;
+private:
+    catan::Player owner;
+    vector<int> neighborsCross;
+    int id;
 
-
-    public:
-        Cross();
-        Cross(Player owner, int type, int numberOfPlot, int number): owner(owner), type(type), numberOfPlot(numberOfPlot), number(number){};
-        ~Cross();
-    };
-}
+public:
+    Cross();
+    // Cross(int owner, int type, int numberOfPlot, int number): owner(owner), type(type), numberOfPlot(numberOfPlot), number(number){};
+    void setData(int owner, vector<int> neighborsCross, int id);
+    ~Cross();
+};

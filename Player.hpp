@@ -1,19 +1,16 @@
-#include "Cross.hpp"
-#include "Path.hpp"
-#include "Catan.hpp"
+#include <vector>
+#include <string>
 
 namespace catan
 {
     class Player
     {
     private:
-        vector<Path> pathes;
-        vector<Cross> crosses;
+        string name;
+
     public:
-        Player();
+        Player(string name): name(name){};
         ~Player();
-        addPath(Path path);
-        addCross(Cross cross);
         
     };
 }

@@ -1,12 +1,14 @@
 #include "Player.hpp"
+#include "Board.hpp"
 
 class catan{
-    Player p1;
-    Player p2;
-    Player p3;
+    catan::Player p1;
+    catan::Player p2;
+    catan::Player p3;
+    Board board;
 
     public:
-        catan();
+        catan(string name1, string name2, string name3);
         ~catan();
         void rollDice();
 };

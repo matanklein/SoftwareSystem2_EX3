@@ -1,5 +1,5 @@
-#include "Player.hpp"
-#include "Catan.hpp"
+//#include "Player.hpp"
+#include "Definition.hpp"
 
 namespace catan
 {
@@ -12,7 +12,7 @@ namespace catan
 
     public:
         Path();
-        Path(Player owner, int numberOfPlot, int number): owner(owner), numberOfPlot(numberOfPlot), number(number){};
+        Path(Player& owner, int numberOfPlot, int number): owner(owner), numberOfPlot(numberOfPlot), number(number){};
         ~Path();
     };
 }
