@@ -26,5 +26,7 @@
 #define Player3 3
 #define none 4
 
+#define gameover 0
+#define gamecontinue 1
 
 #endif

@@ -1,14 +1,32 @@
 #include "Player.hpp"
 #include "Board.hpp"
+#include <vector>
+#include <string>
+#include <iostream>
+#include "Definition.hpp"
+#include <cstdlib>
+#include <ctime>
+using namespace std;
 
-class catan{
-    catan::Player p1;
-    catan::Player p2;
-    catan::Player p3;
-    Board board;
+
+class Catan{
+    Player p1;
+    Player p2;
+    Player p3;
+    catan::Board board;
+    vector<Player> Players;
+    int turn;
+    bool isGameEnd;
 
     public:
-        catan(string name1, string name2, string name3);
-        ~catan();
+        Catan(string name1, string name2, string name3);
+        ~Catan();
         void rollDice();
+        void endTurn();
+        void buildRoad(Player& player);
+        void buildSettlement(Player& player, int place);
+        void buildCity(Player& player, int place);
+        void startGame();
+        // trade between players of resources
+        void trade(Player& player1, Player& player2, int resource1,int amount1, int resource2, int amount2);
 };

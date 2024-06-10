@@ -1,6 +1,6 @@
 #include "Board.hpp"
 
-Board::Board()
+catan::Board::Board()
 {
     boardPath = {
         {0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -138,6 +138,3 @@ Board::Board()
     
 }
 
-Board::~Board()
-{
-}

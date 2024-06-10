@@ -1,22 +1,14 @@
 #include "Plot.hpp"
 
-void Plot::setData(int numberCircle, int type, vector<Cross> crossSections)
+void Plot::setData(int numberCircle, int type, vector<Cross>& crossSections)
 {
     this->numberCircle = numberCircle;
     this->type = type;
-    if (type == desert)
-    {
-        hasRobber = true;
-    }
-    else
-    {
-        hasRobber = false;
-    }
 }
 
 void Plot::getResoursesOnRoll(int roll)
 {
-    if (numberCircle == roll && !hasRobber && type != desert)
+    if (numberCircle == roll && type != desert)
     {
         for (int i = 0; i < crossSections.size(); i++)
         {
@@ -24,8 +16,7 @@ void Plot::getResoursesOnRoll(int roll)
             {
                 if (crossSections[i].getId() == city)
                 {
-                    crossSections[i].getOwner().addResource(type);
-                    crossSections[i].getOwner().addResource(type);
+                    crossSections[i].getOwner().addResource(type, 2);
                 }
                 else
                 {

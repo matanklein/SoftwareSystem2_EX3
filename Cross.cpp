@@ -6,5 +6,6 @@ namespace catan{
         this->hasOwner = false;
         this->neighborsCross = neighborsCross;
         this->id = id;
+        this->type = empty;
     }
 }

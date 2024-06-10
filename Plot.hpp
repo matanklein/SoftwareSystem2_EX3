@@ -11,11 +11,9 @@ class Plot{
         //vector<catan::Path> pathes;
         int numberCircle;
         int type;
-        bool hasRobber;
-        //bool isNearSea;
     public:
         Plot();
-        void setData(int numberCircle, int type, vector<Cross> crossSections);
+        void setData(int numberCircle, int type, vector<Cross>& crossSections);
         ~Plot();
 
         /**
