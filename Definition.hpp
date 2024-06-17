@@ -24,7 +24,7 @@
 #define Player1 1
 #define Player2 2
 #define Player3 3
-#define none 4
+#define none 0
 
 #define gameover 0
 #define gamecontinue 1

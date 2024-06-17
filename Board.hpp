@@ -49,5 +49,10 @@ namespace catan
         vector<vector<int>>& getPaths(){
             return boardPath;
         }
+
+        void setPath(int i, int j, int value){
+            boardPath[i][j] = value;
+            boardPath[j][i] = value;
+        }
     };
 }

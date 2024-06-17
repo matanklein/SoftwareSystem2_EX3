@@ -9,8 +9,8 @@ private:
     Player& owner;
     bool hasOwner;
     vector<int> neighborsCross;
-    int id;
-    int type;
+    int id; // the serial number of the cross
+    int type; // settlement, city, empty
 
 public:
     Cross();
@@ -33,6 +33,10 @@ public:
     }
     void setType(int type){
         this->type = type;
+    }
+
+    vector<int>& getNeighborsCross(){
+        return neighborsCross;
     }
     ~Cross();
 };

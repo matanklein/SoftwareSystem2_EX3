@@ -1,4 +1,3 @@
-//#include "Player.hpp"
 #include "Definition.hpp"
 
 namespace catan
@@ -6,13 +5,13 @@ namespace catan
     class Path
     {
     private:
+        bool hasOwner;
         Player& owner;
-        int numberOfPlot;
-        int number;
+        int owner;
+        
 
     public:
         Path();
-        Path(Player& owner, int numberOfPlot, int number): owner(owner), numberOfPlot(numberOfPlot), number(number){};
         ~Path();
     };
 }

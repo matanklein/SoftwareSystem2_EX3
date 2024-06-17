@@ -162,3 +162,53 @@ void Catan::trade(Player& player1, Player& player2, int resource1,int amount1, i
     player2.addResource(resource1, amount1);
     
 }
+
+void Catan::buildRoad(Player& player, int i, int j){
+    if(i < 0 || i >= board.getNumberOfCrosses() || j < 0 || j >= board.getNumberOfCrosses()){
+        cout << "The path is out of bounds" << endl;
+        throw "add path failed";
+    }
+
+    vector<vector<int>> paths = board.getPaths();
+    if(paths[i][j] != none || paths[j][i] != none){
+        cout << "The path is already taken" << endl;
+        throw "add path failed";
+    }
+
+    bool isPathConnected = false;
+    bool isSettlementConnected = false;
+
+    vector<Cross> crosses = board.getCrosses();
+
+    // check if the path is connected to player's settlements
+    if(crosses[i].getOwner().getId() == player.getId() || crosses[j].getOwner().getId() == player.getId()){
+        isSettlementConnected = true;
+    }
+
+    // check if the path is connected to player's paths
+    vector<int> neighborsi = crosses[i].getNeighborsCross();
+    vector<int> neighborsj = crosses[j].getNeighborsCross();
+
+    // if there is a player's path with the serial number i or j then the path is connected to the player's paths 
+    for(int k = 0; k < neighborsi.size(); k++){
+        if(paths[i][neighborsi[k]] == player.getId()){
+            isPathConnected = true;
+            break;
+        }
+    }
+
+    for(int k = 0; k < neighborsj.size(); k++){
+        if(paths[j][neighborsj[k]] == player.getId()){
+            isPathConnected = true;
+            break;
+        }
+    }
+
+    if(!isPathConnected && !isSettlementConnected){
+        cout << "The path is not connected to the player's paths or settlements" << endl;
+        throw "add path failed";
+    }
+
+    player.buildRoad();
+    board.setPath(i, j, player.getId());
+}

@@ -13,7 +13,7 @@ class Plot{
         int type;
     public:
         Plot();
-        void setData(int numberCircle, int type, vector<Cross>& crossSections);
+        void setData(int numberCircle, int type, const  vector<Cross>& crossSections);
         ~Plot();
 
         /**

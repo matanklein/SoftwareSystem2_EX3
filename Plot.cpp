@@ -1,6 +1,6 @@
 #include "Plot.hpp"
 
-void Plot::setData(int numberCircle, int type, vector<Cross>& crossSections)
+void Plot::setData(int numberCircle, int type, const vector<Cross>& crossSections)
 {
     this->numberCircle = numberCircle;
     this->type = type;
