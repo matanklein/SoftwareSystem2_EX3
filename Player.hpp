@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include "Definition.hpp"
+#include "Card.hpp"
 using namespace std;
 
 class Player
@@ -13,6 +14,7 @@ private:
     int availableRoads;
     int availableSettlements;
     int id;
+    vector<Card*> developmentCards;
 
 public:
     Player();
@@ -36,6 +38,9 @@ public:
     int getAvailableRoads(){
         return availableRoads;
     }
+    void setAvailableRoads(int availableRoads){
+        this->availableRoads = availableRoads;
+    }
     int getAvailableSettlements(){
         return availableSettlements;
     }
@@ -51,5 +56,9 @@ public:
     void buildSettlement();
 
     void buildCity();
+
+    void buyDevelopmentCard();
+
+    int amountOfallResources();
 
 };

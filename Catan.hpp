@@ -6,6 +6,7 @@
 #include "Definition.hpp"
 #include <cstdlib>
 #include <ctime>
+#include "Card.hpp"
 using namespace std;
 
 
@@ -34,4 +35,10 @@ class Catan{
         // trade between players of resources
         void trade(Player& player1, Player& player2, int resource1,int amount1, int resource2, int amount2);
         
+        void buyDevelopmentCard(Player& player);
+
+        void printBoard();
+
+        void useDevelopmentCard(Player& player, int card);
+
 };

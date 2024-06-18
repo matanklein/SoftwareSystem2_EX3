@@ -131,6 +131,13 @@ void Catan::startGame(){
             plots[j].getResoursesOnRoll(i);
         }
     }
+
+    knight::setAvailable(14);
+    monopoly::setAvailable(5);
+    roadBuilding::setAvailable(2);
+    yearOfPlenty::setAvailable(2);
+    victoryPoint::setAvailable(2);
+
     cout << "The game has started" << endl;
 }
 
@@ -211,4 +218,8 @@ void Catan::buildRoad(Player& player, int i, int j){
 
     player.buildRoad();
     board.setPath(i, j, player.getId());
+}
+
+void Catan::buyDevelopmentCard(Player& player){
+    player.buyDevelopmentCard();
 }

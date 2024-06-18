@@ -90,4 +90,24 @@ namespace catan
         cout << "Player: " << name << "doesn't have enough resources to build a road" << endl;
         throw "Player doesn't have enough resources";
     }
+
+    void Player::buyDevelopmentCard(){
+        if(resources[iron] > 0 && resources[wool] > 0 && resources[oat] > 0){
+            resources[iron]--;
+            resources[wool]--;
+            resources[oat]--;
+            return;
+        }
+
+        cout << "Player: " << name << "doesn't have enough resources to buy a development card" << endl;
+        throw "Player doesn't have enough resources";
+    }
+
+    int Player::amountOfallResources(){
+        int sum = 0;
+        for(int i = 0; i < 5; i++){
+            sum += resources[i];
+        }
+        return sum;
+    }
 }
