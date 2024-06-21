@@ -1,3 +1,8 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
 class Card{
     protected:
         static int available;
@@ -9,40 +14,42 @@ class Card{
         void decreaseAvailable();
         void increaseAvailable();
         virtual void use() = 0;
+        virtual string getType() = 0;
+        
 };
 
-class promotion : public Card{
+class promotionCard : public Card{
     public:
-        promotion();
-        ~promotion();
+        virtual void use() = 0;
+        virtual string getType() = 0;
 };
 
-class roadBuilding : public promotion{
+class roadBuildingCard : public promotionCard{
     public:
-        roadBuilding();
-        ~roadBuilding();
+        void use();
+        string getType();
 };
 
-class monopoly : public promotion{
+class monopolyCard : public promotionCard{
     public:
-        monopoly();
-        ~monopoly();
+        void use();
+        string getType();
 };
 
-class yearOfPlenty : public promotion{
+class yearOfPlentyCard : public promotionCard{
     public:
-        yearOfPlenty();
-        ~yearOfPlenty();
+        void use();
+        string getType();
 };
 
-class knight : public Card{
+class knightCard : public Card{
     public:
-        knight();
-        ~knight();
+        void use();
+        string getType();
 };
 
-class victoryPoint : public Card{
+class victoryPointCard : public Card{
     public:
-        victoryPoint();
-        ~victoryPoint();
+        void use();
+        string getType();
 };

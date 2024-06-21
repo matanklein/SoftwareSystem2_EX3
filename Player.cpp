@@ -110,4 +110,89 @@ namespace catan
         }
         return sum;
     }
+
+    void Player::addDevelopmentCard(Card* card){
+
+        if(card->getType() == "knight"){
+            knights++;
+            return;
+        }
+        if(card->getType() == "victoryPoint"){
+            points++;
+            return;
+        }
+        developmentCards.push_back(card);
+    }
+
+    void Player::useDevelopmentCard(string type){
+
+        if(type == "knight"){
+            cout << "You cannot use a knight card, it already been activated." << endl;
+            return;
+        }
+        if(type == "victoryPoint"){
+            cout << "You cannot use a victoryPoint card, it already been activated." << endl;
+            return;
+        }
+        for(int i = 0; i < developmentCards.size(); i++){
+            if(developmentCards[i]->getType() == type){
+                developmentCards.erase(developmentCards.begin() + i);
+                return;
+            }
+        }
+    }
+
+    bool Player::hasDevelopmentCard(string type){
+
+        if(type == "knight"){
+            return knights > 0;
+        }
+        for(int i = 0; i < developmentCards.size(); i++){
+            if(developmentCards[i]->getType() == type){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void Player::removeDevelopmentCard(string type){
+
+        if(type == "knight"){
+            knights--;
+            return;
+        }
+        if(type == "victoryPoint"){
+            cout << "You cannot remove a victoryPoint card." << endl;
+            return;
+        }
+        for(int i = 0; i < developmentCards.size(); i++){
+            if(developmentCards[i]->getType() == type){
+                developmentCards.erase(developmentCards.begin() + i);
+                return;
+            }
+        }
+    }
+
+    void Player::printResources(){
+        cout << "Player: " << name << " has: " << endl;
+        cout << "Brick: " << resources[brick] << endl;
+        cout << "Wood: " << resources[wood] << endl;
+        cout << "Iron: " << resources[iron] << endl;
+        cout << "Oat: " << resources[oat] << endl;
+        cout << "Wool: " << resources[wool] << endl;
+    }
+
+    void Player::addKnight(){
+        knights++;
+        if(knights == 3){
+            points += 2;
+        }
+    }  
+
+    void Player::removeKnight(){
+        knights--;
+        if(knights == 2){
+            points -= 2;
+        }
+    } 
 }

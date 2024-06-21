@@ -6,6 +6,7 @@
 #include "Definition.hpp"
 #include <cstdlib>
 #include <ctime>
+#include <random>
 #include "Card.hpp"
 using namespace std;
 
@@ -37,8 +38,12 @@ class Catan{
         
         void buyDevelopmentCard(Player& player);
 
+        int getAvailableDevelopmentCard(int card);
+
         void printBoard();
 
         void useDevelopmentCard(Player& player, int card);
+
+        void Monopoly(Player& player, int resource);
 
 };

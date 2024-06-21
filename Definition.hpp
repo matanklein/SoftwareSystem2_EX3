@@ -29,4 +29,10 @@
 #define gameover 0
 #define gamecontinue 1
 
+#define monopoly 0
+#define roadBuilding 1
+#define yearOfPlenty 2
+#define knight 3
+#define victoryPoint 4
+
 #endif

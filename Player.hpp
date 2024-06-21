@@ -15,6 +15,7 @@ private:
     int availableSettlements;
     int id;
     vector<Card*> developmentCards;
+    int knights;
 
 public:
     Player();
@@ -41,6 +42,9 @@ public:
     void setAvailableRoads(int availableRoads){
         this->availableRoads = availableRoads;
     }
+    void addAvailableRoads(int availableRoads){
+        this->availableRoads += availableRoads;
+    }
     int getAvailableSettlements(){
         return availableSettlements;
     }
@@ -51,6 +55,14 @@ public:
         this->points = points;
     }
 
+    void addDevelopmentCard(Card* card);
+
+    void useDevelopmentCard(string type);
+
+    bool hasDevelopmentCard(string type);
+
+    void removeDevelopmentCard(string type);
+
     void buildRoad();
 
     void buildSettlement();
@@ -60,5 +72,10 @@ public:
     void buyDevelopmentCard();
 
     int amountOfallResources();
+
+    void addKnight();
+    void removeKnight();
+
+    void printResources();
 
 };

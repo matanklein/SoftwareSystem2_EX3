@@ -132,11 +132,11 @@ void Catan::startGame(){
         }
     }
 
-    knight::setAvailable(14);
-    monopoly::setAvailable(5);
-    roadBuilding::setAvailable(2);
-    yearOfPlenty::setAvailable(2);
-    victoryPoint::setAvailable(2);
+    knightCard::setAvailable(14);
+    monopolyCard::setAvailable(5);
+    roadBuildingCard::setAvailable(2);
+    yearOfPlentyCard::setAvailable(2);
+    victoryPointCard::setAvailable(2);
 
     cout << "The game has started" << endl;
 }
@@ -221,5 +221,120 @@ void Catan::buildRoad(Player& player, int i, int j){
 }
 
 void Catan::buyDevelopmentCard(Player& player){
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<> dis(0, 4);
+
+    int card = dis(gen);
+
+    if(getAvailableDevelopmentCard(card) == -1){
+        for(int i = 0; i < 5; i++){
+            if(getAvailableDevelopmentCard(i % 5) != -1){
+                card = i;
+                break;
+            }
+        }
+    }
+    switch (card)
+    {
+    case knight:
+        player.addDevelopmentCard(new knightCard());
+        break;
+    case monopoly:
+        player.addDevelopmentCard(new monopolyCard());
+        break;
+    case roadBuilding:
+        player.addDevelopmentCard(new roadBuildingCard());
+        break;
+    case yearOfPlenty:
+        player.addDevelopmentCard(new yearOfPlentyCard());
+        break;
+    case victoryPoint:
+        player.addDevelopmentCard(new victoryPointCard());
+        break;
+    default:
+        cout << "There is no left development cards" << endl;
+        return;
+    }
     player.buyDevelopmentCard();
+}
+
+int Catan::getAvailableDevelopmentCard(int card){
+    switch (card)
+    {
+    case knight:
+        return knightCard::getAvailable();
+    case monopoly:
+        return monopolyCard::getAvailable();
+    case roadBuilding:
+        return roadBuildingCard::getAvailable();
+    case yearOfPlenty:
+        return yearOfPlentyCard::getAvailable();
+    case victoryPoint:
+        return victoryPointCard::getAvailable();
+    default:
+        return -1;
+    }
+}
+
+void Catan::useDevelopmentCard(Player& player, int card){
+
+    switch (card)
+    {
+    case knight:
+        cout << "You don't need to use a knight card, it's automatically used when you play it" << endl;
+        break;
+    case monopoly:
+        if(!player.hasDevelopmentCard("monopoly")){
+            cout << "You don't have a monopoly card" << endl;
+            return;
+        }
+        player.useDevelopmentCard("monopoly");
+        cout << "Choose a resource to take from all the players" << endl;
+        int resource;
+        cin >> resource;
+        Monopoly(player, resource);
+        endTurn();
+        break;
+    case roadBuilding:
+        if(!player.hasDevelopmentCard("roadBuilding")){
+            cout << "You don't have a roadBuilding card" << endl;
+            return;
+        }
+        player.useDevelopmentCard("roadBuilding");
+        player.addAvailableRoads(2);
+        cout << "You can build 2 roads for free" << endl;
+        endTurn();
+        break;
+    case yearOfPlenty:
+        if(!player.hasDevelopmentCard("yearOfPlenty")){
+            cout << "You don't have a yearOfPlenty card" << endl;
+            return;
+        }
+        int resource1, resource2;
+        cout << "Choose 2 resources to take from the bank" << endl;
+        cin >> resource1 >> resource2;
+        player.addResource(resource1, 1);
+        player.addResource(resource2, 1);
+        player.useDevelopmentCard("yearOfPlenty");
+        endTurn();
+        break;
+    case victoryPoint:
+        cout << "You don't need to use a victory point card, it's automatically used when you buy it" << endl;
+        break;
+    default:
+        cout << "That card doesn't exist" << endl;
+        return;
+    }
+}
+
+void Catan::Monopoly(Player& player, int resource){
+    for(int i = 0; i < Players.size(); i++){
+        if(Players[i].getId() == player.getId()){
+            continue;
+        }
+        int amount = Players[i].getResources()[resource];
+        Players[i].removeResource(resource, amount);
+        player.addResource(resource, amount);
+    }
 }
