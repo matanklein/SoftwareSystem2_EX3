@@ -1,3 +1,6 @@
+#ifndef CARD_HPP
+#define CARD_HPP
+
 #include <iostream>
 #include <string>
 
@@ -5,12 +8,12 @@ using namespace std;
 
 class Card{
     protected:
-        static int available;
+        static int avail;
     public:
-        Card();
-        ~Card();
+        Card(){};
+        ~Card(){};
         static int getAvailable();
-        static void setAvailable(int available);
+        static void setAvailable(int avail);
         void decreaseAvailable();
         void increaseAvailable();
         virtual void use() = 0;
@@ -53,3 +56,5 @@ class victoryPointCard : public Card{
         void use();
         string getType();
 };
+
+#endif

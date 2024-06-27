@@ -1,3 +1,6 @@
+#ifndef CROSS_HPP
+#define CROSS_HPP
+
 #include <vector>
 #include "Definition.hpp"
 #include "Player.hpp"
@@ -14,11 +17,13 @@ private:
 
 public:
     Cross();
+    Cross(const Cross& cross);
     void setData(vector<int> neighborsCross, int id);
     Player& getOwner(){
         return owner;
     }
     void setOwner(Player& owner){
+        delete &this->owner;
         this->owner = owner;
         this->hasOwner = true;
     }
@@ -39,4 +44,7 @@ public:
         return neighborsCross;
     }
     ~Cross();
+    Cross& operator=(const Cross& cross);
 };
+
+#endif

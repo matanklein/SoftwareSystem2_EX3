@@ -1,8 +1,8 @@
 #ifndef DEFINITION_HPP
 #define DEFINITION_HPP
 
-#define empty 0
-#define available 1
+#define isempty 0
+#define isavailable 1
 
 #define forest 0
 #define hill 1
@@ -24,7 +24,7 @@
 #define Player1 1
 #define Player2 2
 #define Player3 3
-#define none 0
+#define noneP 0
 
 #define gameover 0
 #define gamecontinue 1

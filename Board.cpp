@@ -1,6 +1,6 @@
 #include "Board.hpp"
 
-catan::Board::Board()
+Board::Board()
 {
     boardPath = {
         {0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -136,6 +136,5 @@ catan::Board::Board()
     boardPlot[17].setData(numberInResources[17], typeInPlots[17], {boardCross[40], boardCross[44], boardCross[45], boardCross[48], boardCross[49], boardCross[52]});
     boardPlot[18].setData(numberInResources[18], typeInPlots[18], {boardCross[41], boardCross[45], boardCross[46], boardCross[49], boardCross[50], boardCross[53]});
 
-    boardPath.resize(54, std::vector<int>(54, none));
+    boardPath.resize(54, std::vector<int>(54, noneP));
 }
-

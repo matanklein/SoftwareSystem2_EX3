@@ -1,3 +1,6 @@
+#ifndef CATAN_HPP
+#define CATAN_HPP
+
 #include "Player.hpp"
 #include "Board.hpp"
 #include <vector>
@@ -15,14 +18,14 @@ class Catan{
     Player p1;
     Player p2;
     Player p3;
-    catan::Board board;
+    Board board;
     vector<Player> Players;
     int turn;
     bool isGameEnd;
 
     public:
         Catan(string name1, string name2, string name3);
-        ~Catan();
+        ~Catan(){};
         void rollDice();
 
         void endTurn();
@@ -47,3 +50,5 @@ class Catan{
         void Monopoly(Player& player, int resource);
 
 };
+
+#endif

@@ -10,14 +10,10 @@ Catan::Catan(string name1, string name2, string name3)
     p3 = Player(name3,3);
     turn = 0;
     Players = {p1, p2, p3};
-    board = catan::Board();
+    board = Board();
     isGameEnd = false;
     
     srand(static_cast<unsigned int>(time(0)));
-}
-
-Catan::~Catan()
-{
 }
 
 void Catan::rollDice()
@@ -27,7 +23,7 @@ void Catan::rollDice()
         throw "Game is over";
     }
 
-    for(int i = 0; i < Players.size(); i++){
+    for(size_t i = 0; i < Players.size(); i++){
         if(Players[i].getAvailableRoads() > 0){
             cout << "Player: " << Players[i].getName() << "didn't built all the roads that he got. left: " << Players[i].getAvailableRoads() << endl;
             throw "Player has available roads";
@@ -48,7 +44,7 @@ void Catan::rollDice()
 
     vector<Plot> plots = board.getPlots();
 
-    for(int i = 0; i < plots.size(); i++){
+    for(size_t i = 0; i < plots.size(); i++){
         plots[i].getResoursesOnRoll(sum);
     }
     
@@ -110,7 +106,7 @@ void Catan::buildCity(Player& player, int place){
 }
 
 void Catan::startGame(){
-    for(int i = 0; i < Players.size(); i++){
+    for(size_t i = 0; i < Players.size(); i++){
         if(Players[i].getAvailableRoads() > 0){
             cout << "Player: " << Players[i].getName() << "didn't built all the roads that he got. left: " << Players[i].getAvailableRoads() << endl;
             throw "Player has available roads";
@@ -127,7 +123,7 @@ void Catan::startGame(){
             continue;
         }
 
-        for(int j = 0; j < plots.size(); j++){
+        for(size_t j = 0; j < plots.size(); j++){
             plots[j].getResoursesOnRoll(i);
         }
     }
@@ -177,7 +173,7 @@ void Catan::buildRoad(Player& player, int i, int j){
     }
 
     vector<vector<int>> paths = board.getPaths();
-    if(paths[i][j] != none || paths[j][i] != none){
+    if(paths[i][j] != noneP || paths[j][i] != noneP){
         cout << "The path is already taken" << endl;
         throw "add path failed";
     }
@@ -197,14 +193,14 @@ void Catan::buildRoad(Player& player, int i, int j){
     vector<int> neighborsj = crosses[j].getNeighborsCross();
 
     // if there is a player's path with the serial number i or j then the path is connected to the player's paths 
-    for(int k = 0; k < neighborsi.size(); k++){
+    for(size_t k = 0; k < neighborsi.size(); k++){
         if(paths[i][neighborsi[k]] == player.getId()){
             isPathConnected = true;
             break;
         }
     }
 
-    for(int k = 0; k < neighborsj.size(); k++){
+    for(size_t k = 0; k < neighborsj.size(); k++){
         if(paths[j][neighborsj[k]] == player.getId()){
             isPathConnected = true;
             break;
@@ -329,7 +325,7 @@ void Catan::useDevelopmentCard(Player& player, int card){
 }
 
 void Catan::Monopoly(Player& player, int resource){
-    for(int i = 0; i < Players.size(); i++){
+    for(size_t i = 0; i < Players.size(); i++){
         if(Players[i].getId() == player.getId()){
             continue;
         }

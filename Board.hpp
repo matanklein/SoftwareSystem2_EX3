@@ -1,58 +1,66 @@
+#ifndef BOARD_HPP
+#define BOARD_HPP
+
 #include <vector>
 #include "Plot.hpp"
 #include "Cross.hpp"
-#include "Path.hpp"
 #include "Definition.hpp"
 using namespace std;
 
-namespace catan
+class Board
 {
+private:
+    vector<vector<int>> boardPath;
+    vector<Cross> boardCross;
+    vector<int> numberInResources = {
+        10, 2, 9, 12, 6, 4, 10, 9, 11, 0, 3, 8, 8, 3, 4, 5, 5, 6, 11};
+    vector<int> typeInPlots = {
+        mountain, pasture, forest, field, hill, pasture, hill, field, forest, desert,
+        forest, mountain, forest, mountain, field, pasture, hill, field, pasture};
+    vector<Plot> boardPlot;
 
-    class Board
+public:
+    Board();
+
+    ~Board()
     {
-    private:
-        vector<vector<int>> boardPath;
-        vector<Cross> boardCross;
-        vector<int> numberInResources = {
-            10, 2, 9, 12, 6, 4, 10, 9, 11, 0, 3, 8, 8, 3, 4, 5, 5, 6, 11};
-        vector<int> typeInPlots = {
-            mountain, pasture, forest, field, hill, pasture, hill, field, forest, desert,
-            forest, mountain, forest, mountain, field, pasture, hill, field, pasture};
-        vector<Plot> boardPlot;
+    }
 
-    public:
-        Board();
+    int getNumberOfPlots()
+    {
+        return boardPlot.size();
+    }
 
-        ~Board();
+    int getNumberOfCrosses()
+    {
+        return boardCross.size();
+    }
 
-        int getNumberOfPlots(){
-            return boardPlot.size();
-        
-        }
+    int getNumberOfPaths()
+    {
+        return boardPath.size();
+    }
 
-        int getNumberOfCrosses(){
-            return boardCross.size();
-        }
+    vector<Plot> &getPlots()
+    {
+        return boardPlot;
+    }
 
-        int getNumberOfPaths(){
-            return boardPath.size();
-        }
+    vector<Cross> &getCrosses()
+    {
+        return boardCross;
+    }
 
-        vector<Plot>& getPlots(){
-            return boardPlot;
-        }
+    vector<vector<int>> &getPaths()
+    {
+        return boardPath;
+    }
 
-        vector<Cross>& getCrosses(){
-            return boardCross;
-        }
+    void setPath(int i, int j, int value)
+    {
+        boardPath[i][j] = value;
+        boardPath[j][i] = value;
+    }
+};
 
-        vector<vector<int>>& getPaths(){
-            return boardPath;
-        }
-
-        void setPath(int i, int j, int value){
-            boardPath[i][j] = value;
-            boardPath[j][i] = value;
-        }
-    };
-}
+#endif

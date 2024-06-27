@@ -1,5 +1,27 @@
 #include "Card.hpp"
 
+int Card::avail = 0;
+
+int Card::getAvailable()
+{
+    return avail;
+}
+
+void Card::setAvailable(int avail)
+{
+    Card::avail = avail;
+}
+
+void Card::decreaseAvailable()
+{
+    avail--;
+}
+
+void Card::increaseAvailable()
+{
+    avail++;
+}
+
 void roadBuildingCard::use()
 {
     cout << "Using a roadBuilding card, now you can build 2 road for free." << endl;

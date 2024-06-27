@@ -1,7 +1,5 @@
 #include "Player.hpp"
 
-namespace catan
-{
     Player::Player()
     {
         resources = {0, 0, 0, 0, 0};
@@ -134,7 +132,7 @@ namespace catan
             cout << "You cannot use a victoryPoint card, it already been activated." << endl;
             return;
         }
-        for(int i = 0; i < developmentCards.size(); i++){
+        for(size_t i = 0; i < developmentCards.size(); i++){
             if(developmentCards[i]->getType() == type){
                 developmentCards.erase(developmentCards.begin() + i);
                 return;
@@ -147,7 +145,7 @@ namespace catan
         if(type == "knight"){
             return knights > 0;
         }
-        for(int i = 0; i < developmentCards.size(); i++){
+        for(size_t i = 0; i < developmentCards.size(); i++){
             if(developmentCards[i]->getType() == type){
                 return true;
             }
@@ -165,7 +163,7 @@ namespace catan
             cout << "You cannot remove a victoryPoint card." << endl;
             return;
         }
-        for(int i = 0; i < developmentCards.size(); i++){
+        for(size_t i = 0; i < developmentCards.size(); i++){
             if(developmentCards[i]->getType() == type){
                 developmentCards.erase(developmentCards.begin() + i);
                 return;
@@ -195,4 +193,3 @@ namespace catan
             points -= 2;
         }
     } 
-}

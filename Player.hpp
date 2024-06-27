@@ -1,3 +1,6 @@
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
+
 #include <vector>
 #include <string>
 #include <iostream>
@@ -20,7 +23,8 @@ private:
 public:
     Player();
     Player(string name, int id);
-    ~Player();
+    ~Player(){
+    }
 
     void addResource(int resource);
     void addResource(int resource, int amount);
@@ -79,3 +83,5 @@ public:
     void printResources();
 
 };
+
+#endif
