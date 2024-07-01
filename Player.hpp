@@ -76,11 +76,14 @@ public:
     void buyDevelopmentCard();
 
     int amountOfallResources();
+    void roll7();
 
     void addKnight();
     void removeKnight();
 
     void printResources();
+
+    void operator=(const Player& player);
 
 };
 

@@ -5,12 +5,15 @@ CC = g++
 OBJS = Player.o Board.o Card.o Cross.o Plot.o Catan.o demo.o
 
 # Compiler flags
-CFLAGS = -Wall -Wextra -pedantic -std=c++11
+CFLAGS = -g -Wall -Wextra -pedantic -std=c++11
 
 # Target
 TARGET = demo
 
 all: $(TARGET)
+
+catan : $(TARGET)
+#	./$(TARGET)
 
 Player.o: Player.cpp Player.hpp
 	$(CC) $(CFLAGS) -c Player.cpp
@@ -33,9 +36,10 @@ Catan.o: Catan.cpp Catan.hpp
 demo.o: demo.cpp
 	$(CC) $(CFLAGS) -c demo.cpp
 
+valgrind: $(TARGET)
+	valgrind --leak-check=full -s ./$(TARGET)
 
 # Link object files to executable
-
 $(TARGET): $(OBJS) Definition.hpp
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 

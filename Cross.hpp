@@ -23,7 +23,6 @@ public:
         return owner;
     }
     void setOwner(Player& owner){
-        delete &this->owner;
         this->owner = owner;
         this->hasOwner = true;
     }

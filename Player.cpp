@@ -103,10 +103,26 @@
 
     int Player::amountOfallResources(){
         int sum = 0;
-        for(int i = 0; i < 5; i++){
+        for(size_t i = 0; i < resources.size(); i++){
             sum += resources[i];
         }
         return sum;
+    }
+
+    void Player::roll7(){
+        if(amountOfallResources() > 7){
+            cout << "Player: " << name << " has more than 7 resources, must discard half of them." << endl;
+            int half = amountOfallResources() / 2;
+            for(size_t i = 0; i < resources.size() ; i++){
+                if(resources[i] > half){
+                    resources[i] -= half;
+                    half = 0;
+                    break;
+                }
+                half -= resources[i];
+                resources[i] = 0;
+            }
+        }
     }
 
     void Player::addDevelopmentCard(Card* card){
@@ -192,4 +208,15 @@
         if(knights == 2){
             points -= 2;
         }
+    }
+
+    void Player::operator=(const Player& player){
+        resources = player.resources;
+        points = player.points;
+        availableRoads = player.availableRoads;
+        availableSettlements = player.availableSettlements;
+        name = player.name;
+        id = player.id;
+        knights = player.knights;
+        developmentCards = player.developmentCards;
     } 

@@ -19,11 +19,12 @@ class Catan{
     Player p2;
     Player p3;
     Board board;
-    vector<Player> Players;
     int turn;
     bool isGameEnd;
 
     public:
+        vector<Player> Players;
+        
         Catan(string name1, string name2, string name3);
         ~Catan(){};
         void rollDice();

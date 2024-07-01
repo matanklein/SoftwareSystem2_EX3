@@ -25,5 +25,4 @@
     }
 
     Cross::~Cross(){
-        delete &owner;
     }
