@@ -110,43 +110,72 @@ Board::Board()
     boardCross[52].setData({49, 50}, 53);
     boardCross[53].setData({50, 51}, 54);
 
-    boardPlot = {
-            Plot(),Plot(),Plot(),
-        Plot(),Plot(),Plot(),Plot(),
-      Plot(),Plot(),Plot(),Plot(),Plot(),
-        Plot(),Plot(),Plot(),Plot(),
-            Plot(),Plot(),Plot()
-    };
+    // boardPlot = {
+    //         Plot(),Plot(),Plot(),
+    //     Plot(),Plot(),Plot(),Plot(),
+    //   Plot(),Plot(),Plot(),Plot(),Plot(),
+    //     Plot(),Plot(),Plot(),Plot(),
+    //         Plot(),Plot(),Plot()
+    // };
 
-    //boardPlot = vector<Plot>(19, new Plot());
+    boardPlot = vector<Plot*>(19, nullptr);
+    
+    vector <Cross*> plot0 = {&boardCross[0], &boardCross[3], &boardCross[4], &boardCross[7], &boardCross[8], &boardCross[12]};
+    vector <Cross*> plot1 = {&boardCross[1], &boardCross[4], &boardCross[5], &boardCross[8], &boardCross[9], &boardCross[13]};
+    vector <Cross*> plot2 = {&boardCross[2], &boardCross[5], &boardCross[6], &boardCross[9], &boardCross[10], &boardCross[14]};
+    vector <Cross*> plot3 = {&boardCross[7], &boardCross[11], &boardCross[12], &boardCross[16], &boardCross[17], &boardCross[22]};
+    vector <Cross*> plot4 = {&boardCross[8], &boardCross[12], &boardCross[13], &boardCross[17], &boardCross[18], &boardCross[23]};
+    vector <Cross*> plot5 = {&boardCross[9], &boardCross[13], &boardCross[14], &boardCross[18], &boardCross[19], &boardCross[24]};
+    vector <Cross*> plot6 = {&boardCross[10], &boardCross[14], &boardCross[15], &boardCross[19], &boardCross[20], &boardCross[25]};
+    vector <Cross*> plot7 = {&boardCross[16], &boardCross[21], &boardCross[22], &boardCross[27], &boardCross[28], &boardCross[33]};
+    vector <Cross*> plot8 = {&boardCross[17], &boardCross[22], &boardCross[23], &boardCross[28], &boardCross[29], &boardCross[34]};
+    vector <Cross*> plot9 = {&boardCross[18], &boardCross[23], &boardCross[24], &boardCross[29], &boardCross[30], &boardCross[35]};
+    vector <Cross*> plot10 = {&boardCross[19], &boardCross[24], &boardCross[25], &boardCross[30], &boardCross[31], &boardCross[36]};
+    vector <Cross*> plot11 = {&boardCross[20], &boardCross[25], &boardCross[26], &boardCross[31], &boardCross[32], &boardCross[37]};
+    vector <Cross*> plot12 = {&boardCross[28], &boardCross[33], &boardCross[34], &boardCross[38], &boardCross[39], &boardCross[43]};
+    vector <Cross*> plot13 = {&boardCross[29], &boardCross[34], &boardCross[35], &boardCross[39], &boardCross[40], &boardCross[44]};
+    vector <Cross*> plot14 = {&boardCross[30], &boardCross[35], &boardCross[36], &boardCross[40], &boardCross[41], &boardCross[45]};
+    vector <Cross*> plot15 = {&boardCross[31], &boardCross[36], &boardCross[37], &boardCross[41], &boardCross[42], &boardCross[46]};
+    vector <Cross*> plot16 = {&boardCross[39], &boardCross[43], &boardCross[44], &boardCross[47], &boardCross[48], &boardCross[51]};
+    vector <Cross*> plot17 = {&boardCross[40], &boardCross[44], &boardCross[45], &boardCross[48], &boardCross[49], &boardCross[52]};
+    vector <Cross*> plot18 = {&boardCross[41], &boardCross[45], &boardCross[46], &boardCross[49], &boardCross[50], &boardCross[53]};
 
-    boardPlot[0].setData(numberInResources[0], typeInPlots[0], {boardCross[0], boardCross[3], boardCross[4], boardCross[7], boardCross[8], boardCross[12]});
-    boardPlot[1].setData(numberInResources[1], typeInPlots[1], {boardCross[1], boardCross[4], boardCross[5], boardCross[8], boardCross[9], boardCross[13]});
-    boardPlot[2].setData(numberInResources[2], typeInPlots[2], {boardCross[2], boardCross[5], boardCross[6], boardCross[9], boardCross[10], boardCross[14]});
+    for (int i = 0; i < 19; ++i) {
+        boardPlot[i] = new Plot(); // Assuming Plot has a default constructor
+    }
 
-    boardPlot[3].setData(numberInResources[3], typeInPlots[3], {boardCross[7], boardCross[11], boardCross[12], boardCross[16], boardCross[17], boardCross[22]});
-    boardPlot[4].setData(numberInResources[4], typeInPlots[4], {boardCross[8], boardCross[12], boardCross[13], boardCross[17], boardCross[18], boardCross[23]});
-    boardPlot[5].setData(numberInResources[5], typeInPlots[5], {boardCross[9], boardCross[13], boardCross[14], boardCross[18], boardCross[19], boardCross[24]});
-    boardPlot[6].setData(numberInResources[6], typeInPlots[6], {boardCross[10], boardCross[14], boardCross[15], boardCross[19], boardCross[20], boardCross[25]});
+    boardPlot[0]->setData(numberInResources[0], typeInPlots[0], plot0);
+    boardPlot[1]->setData(numberInResources[1], typeInPlots[1], plot1);
+    boardPlot[2]->setData(numberInResources[2], typeInPlots[2], plot2);
 
-    boardPlot[7].setData(numberInResources[7], typeInPlots[7], {boardCross[16], boardCross[21], boardCross[22], boardCross[27], boardCross[28], boardCross[33]});
-    boardPlot[8].setData(numberInResources[8], typeInPlots[8], {boardCross[17], boardCross[22], boardCross[23], boardCross[28], boardCross[29], boardCross[34]});
-    boardPlot[9].setData(numberInResources[9], typeInPlots[9], {boardCross[18], boardCross[23], boardCross[24], boardCross[29], boardCross[30], boardCross[35]});
-    boardPlot[10].setData(numberInResources[10], typeInPlots[10], {boardCross[19], boardCross[24], boardCross[25], boardCross[30], boardCross[31], boardCross[36]});
-    boardPlot[11].setData(numberInResources[11], typeInPlots[11], {boardCross[20], boardCross[25], boardCross[26], boardCross[31], boardCross[32], boardCross[37]});
+    boardPlot[3]->setData(numberInResources[3], typeInPlots[3], plot3);
+    boardPlot[4]->setData(numberInResources[4], typeInPlots[4], plot4);
+    boardPlot[5]->setData(numberInResources[5], typeInPlots[5], plot5);
+    boardPlot[6]->setData(numberInResources[6], typeInPlots[6], plot6);
 
-    boardPlot[12].setData(numberInResources[12], typeInPlots[12], {boardCross[28], boardCross[33], boardCross[34], boardCross[38], boardCross[39], boardCross[43]});
-    boardPlot[13].setData(numberInResources[13], typeInPlots[13], {boardCross[29], boardCross[34], boardCross[35], boardCross[39], boardCross[40], boardCross[44]});
-    boardPlot[14].setData(numberInResources[14], typeInPlots[14], {boardCross[30], boardCross[35], boardCross[36], boardCross[40], boardCross[41], boardCross[45]});
-    boardPlot[15].setData(numberInResources[15], typeInPlots[15], {boardCross[31], boardCross[36], boardCross[37], boardCross[41], boardCross[42], boardCross[46]});
+    boardPlot[7]->setData(numberInResources[7], typeInPlots[7], plot7);
+    boardPlot[8]->setData(numberInResources[8], typeInPlots[8], plot8);
+    boardPlot[9]->setData(numberInResources[9], typeInPlots[9], plot9);
+    boardPlot[10]->setData(numberInResources[10], typeInPlots[10], plot10);
+    boardPlot[11]->setData(numberInResources[11], typeInPlots[11], plot11);
 
-    boardPlot[16].setData(numberInResources[16], typeInPlots[16], {boardCross[39], boardCross[43], boardCross[44], boardCross[47], boardCross[48], boardCross[51]});
-    boardPlot[17].setData(numberInResources[17], typeInPlots[17], {boardCross[40], boardCross[44], boardCross[45], boardCross[48], boardCross[49], boardCross[52]});
-    boardPlot[18].setData(numberInResources[18], typeInPlots[18], {boardCross[41], boardCross[45], boardCross[46], boardCross[49], boardCross[50], boardCross[53]});
+    boardPlot[12]->setData(numberInResources[12], typeInPlots[12], plot12);
+    boardPlot[13]->setData(numberInResources[13], typeInPlots[13], plot13);
+    boardPlot[14]->setData(numberInResources[14], typeInPlots[14], plot14);
+    boardPlot[15]->setData(numberInResources[15], typeInPlots[15], plot15);
+
+    boardPlot[16]->setData(numberInResources[16], typeInPlots[16], plot16);
+    boardPlot[17]->setData(numberInResources[17], typeInPlots[17], plot17);
+    boardPlot[18]->setData(numberInResources[18], typeInPlots[18], plot18);
+
+    
 
     boardPath = vector<vector<int>>(54, vector<int>(54, noneP));
 }
 
 Board::~Board()
 {
+    for (int i = 0; i < 19; ++i) {
+        delete boardPlot[i];
+    }
 }

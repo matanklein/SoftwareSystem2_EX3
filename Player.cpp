@@ -27,6 +27,7 @@ void Player::addResource(int resource)
     if (resource < 0 || resource > 4 || resource == desert)
         return;
     resources[resource]++;
+    cout << "Player: " << name << " got a resource: " << resource << endl;
 }
 
 void Player::addResource(int resource, int amount)
@@ -34,6 +35,7 @@ void Player::addResource(int resource, int amount)
     if (resource < 0 || resource > 4 || resource == desert)
         return;
     resources[resource] += amount;
+    cout << "Player: " << name << " got resources:s " << resource << endl;
 }
 
 void Player::removeResource(int resource)
@@ -230,6 +232,7 @@ void Player::removeDevelopmentCard(string type)
 
 void Player::printResources()
 {
+    cout<< endl;
     cout << "Player " << name << " has: " << endl;
     cout << "Brick: " << resources[brick] << endl;
     cout << "Wood: " << resources[wood] << endl;

@@ -30,6 +30,7 @@ int main(){
         int l, m;
         cin >> l >> m;
         catan.buildRoad(catan.Players[i], l, m);
+        cout << catan.getPlayer(i)->getName() << " has " << catan.getPlayer(i)->getPoints() << " points" << endl;
     }
 
     for(size_t i = 0; i < 3; i++){
@@ -42,9 +43,13 @@ int main(){
         int l, m;
         cin >> l >> m;
         catan.buildRoad(catan.Players[i], l, m);
+        cout << catan.getPlayer(i)->getName() << " has " << catan.getPlayer(i)->getPoints() << " points" << endl;
     }
 
+    cout << "-=-=-=-=-=-=-=-=-" << endl;
     catan.startGame();
+    cout << "-=-=-=-=-=-=-=-=-" << endl;
+    
 
     // first round
     for(size_t i = 0; i < 3; i++){

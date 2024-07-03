@@ -21,6 +21,13 @@ private:
 
 public:
     Cross() : owner(nullptr), hasOwner(false), id(0), type(isempty){};
+    Cross(const Cross& cross){
+        this->owner = cross.owner;
+        this->hasOwner = cross.hasOwner;
+        this->neighborsCross = cross.neighborsCross;
+        this->id = cross.id;
+        this->type = cross.type;
+    }
     void setData(vector<int> neighborsCross, int id);
     Player* getOwner(){
         return owner;

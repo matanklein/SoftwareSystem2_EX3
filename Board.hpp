@@ -21,7 +21,7 @@ private:
     vector<int> typeInPlots = {
         mountain, pasture, forest, field, hill, pasture, hill, field, forest, desert,
         forest, mountain, forest, mountain, field, pasture, hill, field, pasture};
-    vector<Plot> boardPlot;
+    vector<Plot*> boardPlot;
 
 public:
     Board();
@@ -43,7 +43,7 @@ public:
         return boardPath.size();
     }
 
-    vector<Plot>& getPlots()
+    vector<Plot*>& getPlots()
     {
         return boardPlot;
     }
@@ -76,9 +76,12 @@ public:
         boardCross[i].setType(type);
     }
 
-    void putResourceInPlotWithRoll(int j, int roll)
+    void putResourceInPlotWithRoll(int j, int roll, vector<Player*> &players)
     {
-        boardPlot[j].getResoursesOnRoll(roll);
+        if(boardPlot[j] == nullptr){
+            return;
+        }
+        boardPlot[j]->getResoursesOnRoll(roll, players);
     }
    
 };

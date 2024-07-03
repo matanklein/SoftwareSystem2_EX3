@@ -29,16 +29,6 @@ void Catan::rollDice()
         throw "Game is over";
     }
 
-    for(size_t i = 0; i < Players.size(); i++){
-        // if(Players[i].getAvailableRoads() > 0){
-        //     cout << "Player: " << Players[i].getName() << "didn't built all the roads that he got. left: " << Players[i].getAvailableRoads() << endl;
-        //     throw "Player has available roads";
-        // }
-        // if(Players[i].getAvailableSettlements() > 0){
-        //     cout << "Player: " << Players[i].getName() << "didn't built all the settlements that he got. left: " << Players[i].getAvailableSettlements() << endl;
-        //     throw "Player has available settlements";
-        // }
-    }
     int dice1 = rand() % 6 + 1;
     int dice2 = rand() % 6 + 1;
     int sum = dice1 + dice2;
@@ -51,10 +41,10 @@ void Catan::rollDice()
         }
     }
 
-    vector<Plot> plots = board.getPlots();
+    vector<Plot*> plots = board.getPlots();
 
     for(size_t i = 0; i < plots.size(); i++){
-        plots[i].getResoursesOnRoll(sum);
+        board.putResourceInPlotWithRoll(i, sum, Players);
     }
     
 }
@@ -82,9 +72,9 @@ void Catan::buildSettlement(Player* player, int place){
     }
 
     vector<Cross> crosses = board.getCrosses();
-    for(size_t i = 0; i < crosses.size(); i++){
-        cout << "cross " << i << " is " << crosses[i].getHasOwner() << endl;
-    }
+    // for(size_t i = 0; i < crosses.size(); i++){
+    //     cout << "cross " << i << " is " << crosses[i].getHasOwner() << endl;
+    // }
 
     if(crosses[place].getHasOwner()){
         cout << "The place "  << place << " is already taken by: " << crosses[place].getOwner()->getName() << endl;
@@ -95,9 +85,9 @@ void Catan::buildSettlement(Player* player, int place){
     board.setCross(place, settlement, player);
 
 
-    for(size_t i = 0; i < crosses.size(); i++){
-        cout << "cross " << i << " is " << crosses[i].getHasOwner() << endl;
-    }
+    // for(size_t i = 0; i < crosses.size(); i++){
+    //     cout << "cross " << i << " is " << crosses[i].getHasOwner() << endl;
+    // }
 }
 
 void Catan::buildCity(Player* player, int place){
@@ -131,14 +121,14 @@ void Catan::startGame(){
     }
 
     // run once on the board and give each player resources based on their settlements
-    vector<Plot> plots = board.getPlots();
+    vector<Plot*> plots = board.getPlots();
     for(int i = 2; i <= 12 ; i++){ // run for all the possible rolls
         if(i == 7){ // skip the 7 roll
             continue;
         }
 
         for(size_t j = 0; j < plots.size(); j++){
-            board.putResourceInPlotWithRoll(j, i);
+            board.putResourceInPlotWithRoll(j, i, Players);
         }
 
     }
