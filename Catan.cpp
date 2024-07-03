@@ -1,3 +1,7 @@
+/*
+   email- matank214@gmail.com
+*/
+
 #include "Catan.hpp"
 #include <iostream>
 
@@ -5,11 +9,13 @@ using namespace std;
 
 Catan::Catan(string name1, string name2, string name3)
 {
-    p1 = Player(name1,1);
-    p2 = Player(name2,2);
-    p3 = Player(name3,3);
+    p1 = new Player(name1,1);
+    p2 = new Player(name2,2);
+    p3 = new Player(name3,3);
     turn = 0;
-    Players = {p1, p2, p3};
+    Players.push_back(p1);
+    Players.push_back(p2);
+    Players.push_back(p3);
     board = Board();
     isGameEnd = false;
     
@@ -41,7 +47,7 @@ void Catan::rollDice()
     {
         cout << "7 activated" << endl;
         for(size_t i = 0; i < Players.size(); i++){
-            Players[i].roll7();
+            Players[i]->roll7();
         }
     }
 
@@ -55,8 +61,8 @@ void Catan::rollDice()
 
 void Catan::endTurn()
 {
-    if(Players[turn].getPoints() >= 10){
-        cout << "The winner is: " << Players[turn].getName() << endl;
+    if(Players[turn]->getPoints() >= 10){
+        cout << "The winner is: " << Players[turn]->getName() << endl;
         cout << "The game is over" << endl;
         isGameEnd = true;
         return;
@@ -68,7 +74,7 @@ void Catan::endTurn()
     }
 }
 
-void Catan::buildSettlement(Player& player, int place){
+void Catan::buildSettlement(Player* player, int place){
 
     if(place < 0 || place >= board.getNumberOfCrosses()){
         cout << "The place is out of bounds" << endl;
@@ -76,17 +82,25 @@ void Catan::buildSettlement(Player& player, int place){
     }
 
     vector<Cross> crosses = board.getCrosses();
+    for(size_t i = 0; i < crosses.size(); i++){
+        cout << "cross " << i << " is " << crosses[i].getHasOwner() << endl;
+    }
+
     if(crosses[place].getHasOwner()){
-        cout << "The place is already taken by: " << crosses[place].getOwner().getName() << endl;
+        cout << "The place "  << place << " is already taken by: " << crosses[place].getOwner()->getName() << endl;
         return;
     }
 
-    player.buildSettlement();
-    crosses[place].setOwner(player);
-    crosses[place].setType(settlement);
+    player->buildSettlement();
+    board.setCross(place, settlement, player);
+
+
+    for(size_t i = 0; i < crosses.size(); i++){
+        cout << "cross " << i << " is " << crosses[i].getHasOwner() << endl;
+    }
 }
 
-void Catan::buildCity(Player& player, int place){
+void Catan::buildCity(Player* player, int place){
 
     if(place < 0 || place >= board.getNumberOfCrosses()){
         cout << "The place is out of bounds" << endl;
@@ -99,19 +113,19 @@ void Catan::buildCity(Player& player, int place){
         throw "build city on empty place";
     }
 
-    if(crosses[place].getOwner().getId() != player.getId()){
-        cout << "The place is taken by: " << crosses[place].getOwner().getName() << endl;
+    if(crosses[place].getOwner() != player){
+        cout << "The place is taken by: " << crosses[place].getOwner()->getName() << endl;
         throw "build city on taken place";
     }
 
-    player.buildCity();
-    crosses[place].setType(city);
+    player->buildCity();
+    board.setCross(place, city);
 }
 
 void Catan::startGame(){
     for(size_t i = 0; i < Players.size(); i++){
-        if(Players[i].getAvailableSettlements() > 0){
-            cout << "Player: " << Players[i].getName() << "didn't built all the settlements that he got. left: " << Players[i].getAvailableSettlements() << endl;
+        if(Players[i]->getAvailableSettlements() > 0){
+            cout << "Player: " << Players[i]->getName() << "didn't built all the settlements that he got. left: " << Players[i]->getAvailableSettlements() << endl;
             throw "Player has available settlements";
         }
     }
@@ -124,8 +138,9 @@ void Catan::startGame(){
         }
 
         for(size_t j = 0; j < plots.size(); j++){
-            plots[j].getResoursesOnRoll(i);
+            board.putResourceInPlotWithRoll(j, i);
         }
+
     }
 
     knightCard::setAvailable(14);
@@ -134,21 +149,25 @@ void Catan::startGame(){
     yearOfPlentyCard::setAvailable(2);
     victoryPointCard::setAvailable(2);
 
+    for(size_t i = 0; i < Players.size(); i++){
+        Players[i]->printResources();
+    }
+
     cout << "The game has started" << endl;
 }
 
-void Catan::trade(Player& player1, Player& player2, int resource1,int amount1, int resource2, int amount2){
+void Catan::trade(Player* player1, Player* player2, int resource1,int amount1, int resource2, int amount2){
     if(resource1 < 0 || resource1 > 4 || resource2 < 0 || resource2 > 4){
         cout << "The resource is out of bounds" << endl;
         throw "trade failed";
     }
 
-    if(player1.getResources()[resource1] < amount1 || player2.getResources()[resource2] < amount2){
+    if(player1->getResources()[resource1] < amount1 || player2->getResources()[resource2] < amount2){
         cout << "The player doesn't have enough resources" << endl;
         throw "trade failed";
     }
 
-    if(player1.getId() == player2.getId()){
+    if(player1->getId() == player2->getId()){
         cout << "The player can't trade with himself" << endl;
         throw "trade failed";
     }
@@ -158,15 +177,15 @@ void Catan::trade(Player& player1, Player& player2, int resource1,int amount1, i
         throw "trade failed";
     }
 
-    player1.removeResource(resource1, amount1);
-    player1.addResource(resource2, amount2);
+    player1->removeResource(resource1, amount1);
+    player1->addResource(resource2, amount2);
     
-    player2.removeResource(resource2, amount2);
-    player2.addResource(resource1, amount1);
+    player2->removeResource(resource2, amount2);
+    player2->addResource(resource1, amount1);
     
 }
 
-void Catan::buildRoad(Player& player, int i, int j){
+void Catan::buildRoad(Player* player, int i, int j){
     if(i < 0 || i >= board.getNumberOfCrosses() || j < 0 || j >= board.getNumberOfCrosses()){
         cout << "The path is out of bounds" << endl;
         throw "add path failed";
@@ -182,9 +201,13 @@ void Catan::buildRoad(Player& player, int i, int j){
     bool isSettlementConnected = false;
 
     vector<Cross> crosses = board.getCrosses();
-
+    
     // check if the path is connected to player's settlements
-    if(crosses[i].getOwner().getId() == player.getId() || crosses[j].getOwner().getId() == player.getId()){
+    if(crosses[i].getHasOwner() == true && crosses[i].getOwner() == player){
+        isSettlementConnected = true;
+    }
+
+    if(crosses[j].getHasOwner() == true && crosses[j].getOwner() == player){
         isSettlementConnected = true;
     }
 
@@ -194,14 +217,14 @@ void Catan::buildRoad(Player& player, int i, int j){
 
     // if there is a player's path with the serial number i or j then the path is connected to the player's paths 
     for(size_t k = 0; k < neighborsi.size(); k++){
-        if(paths[i][neighborsi[k]] == player.getId()){
+        if(paths[i][neighborsi[k]] == player->getId()){
             isPathConnected = true;
             break;
         }
     }
 
     for(size_t k = 0; k < neighborsj.size(); k++){
-        if(paths[j][neighborsj[k]] == player.getId()){
+        if(paths[j][neighborsj[k]] == player->getId()){
             isPathConnected = true;
             break;
         }
@@ -212,12 +235,12 @@ void Catan::buildRoad(Player& player, int i, int j){
         throw "add path failed";
     }
 
-    player.buildRoad();
-    board.setPath(i, j, player.getId());
-    board.setPath(j, i, player.getId());
+    player->buildRoad();
+    board.setPath(i, j, player->getId());
+    board.setPath(j, i, player->getId());
 }
 
-void Catan::buyDevelopmentCard(Player& player){
+void Catan::buyDevelopmentCard(Player* player){
     random_device rd;
     mt19937 gen(rd());
     uniform_int_distribution<> dis(0, 4);
@@ -235,25 +258,25 @@ void Catan::buyDevelopmentCard(Player& player){
     switch (card)
     {
     case knight:
-        player.addDevelopmentCard(new knightCard());
+        player->addDevelopmentCard(new knightCard());
         break;
     case monopoly:
-        player.addDevelopmentCard(new monopolyCard());
+        player->addDevelopmentCard(new monopolyCard());
         break;
     case roadBuilding:
-        player.addDevelopmentCard(new roadBuildingCard());
+        player->addDevelopmentCard(new roadBuildingCard());
         break;
     case yearOfPlenty:
-        player.addDevelopmentCard(new yearOfPlentyCard());
+        player->addDevelopmentCard(new yearOfPlentyCard());
         break;
     case victoryPoint:
-        player.addDevelopmentCard(new victoryPointCard());
+        player->addDevelopmentCard(new victoryPointCard());
         break;
     default:
         cout << "There is no left development cards" << endl;
         return;
     }
-    player.buyDevelopmentCard();
+    player->buyDevelopmentCard();
 }
 
 int Catan::getAvailableDevelopmentCard(int card){
@@ -274,7 +297,7 @@ int Catan::getAvailableDevelopmentCard(int card){
     }
 }
 
-void Catan::useDevelopmentCard(Player& player, int card){
+void Catan::useDevelopmentCard(Player* player, int card){
 
     switch (card)
     {
@@ -282,11 +305,11 @@ void Catan::useDevelopmentCard(Player& player, int card){
         cout << "You don't need to use a knight card, it's automatically used when you play it" << endl;
         break;
     case monopoly:
-        if(!player.hasDevelopmentCard("monopoly")){
+        if(!player->hasDevelopmentCard("monopoly")){
             cout << "You don't have a monopoly card" << endl;
             return;
         }
-        player.useDevelopmentCard("monopoly");
+        player->useDevelopmentCard("monopoly");
         cout << "Choose a resource to take from all the players" << endl;
         int resource;
         cin >> resource;
@@ -294,26 +317,26 @@ void Catan::useDevelopmentCard(Player& player, int card){
         endTurn();
         break;
     case roadBuilding:
-        if(!player.hasDevelopmentCard("roadBuilding")){
+        if(!player->hasDevelopmentCard("roadBuilding")){
             cout << "You don't have a roadBuilding card" << endl;
             return;
         }
-        player.useDevelopmentCard("roadBuilding");
-        player.addAvailableRoads(2);
+        player->useDevelopmentCard("roadBuilding");
+        player->addAvailableRoads(2);
         cout << "You can build 2 roads for free" << endl;
         endTurn();
         break;
     case yearOfPlenty:
-        if(!player.hasDevelopmentCard("yearOfPlenty")){
+        if(!player->hasDevelopmentCard("yearOfPlenty")){
             cout << "You don't have a yearOfPlenty card" << endl;
             return;
         }
         int resource1, resource2;
         cout << "Choose 2 resources to take from the bank" << endl;
         cin >> resource1 >> resource2;
-        player.addResource(resource1, 1);
-        player.addResource(resource2, 1);
-        player.useDevelopmentCard("yearOfPlenty");
+        player->addResource(resource1, 1);
+        player->addResource(resource2, 1);
+        player->useDevelopmentCard("yearOfPlenty");
         endTurn();
         break;
     case victoryPoint:
@@ -325,13 +348,25 @@ void Catan::useDevelopmentCard(Player& player, int card){
     }
 }
 
-void Catan::Monopoly(Player& player, int resource){
+void Catan::Monopoly(Player* player, int resource){
     for(size_t i = 0; i < Players.size(); i++){
-        if(Players[i].getId() == player.getId()){
+        if(Players[i]->getId() == player->getId()){
             continue;
         }
-        int amount = Players[i].getResources()[resource];
-        Players[i].removeResource(resource, amount);
-        player.addResource(resource, amount);
+        int amount = Players[i]->getResources()[resource];
+        Players[i]->removeResource(resource, amount);
+        player->addResource(resource, amount);
     }
+}
+
+Catan::~Catan()
+{
+}
+
+Player* Catan::getPlayer(int num){
+    if(num < 0 || num > 2){
+        cout << "The player number is out of bounds" << endl;
+        throw "get player failed";
+    }
+    return Players[num];
 }

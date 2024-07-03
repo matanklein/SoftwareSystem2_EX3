@@ -1,8 +1,12 @@
+/*
+   email- matank214@gmail.com
+*/
+
 #include "Board.hpp"
 
 Board::Board()
 {
-    boardPath = {
+    /*boardPath = {
         {0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -22,7 +26,7 @@ Board::Board()
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-    };
+    }; */
 
     boardCross = {Cross(), Cross(), Cross(),
                 Cross(), Cross(), Cross(), Cross(),
@@ -37,6 +41,8 @@ Board::Board()
                 Cross(), Cross(), Cross(), Cross(),
                   Cross(), Cross(), Cross()
     };
+
+    //boardCross = vector<Cross*>(54, new Cross());
 
     boardCross[0].setData({4, 5}, 1);
     boardCross[1].setData({5, 6}, 2);
@@ -112,6 +118,8 @@ Board::Board()
             Plot(),Plot(),Plot()
     };
 
+    //boardPlot = vector<Plot>(19, new Plot());
+
     boardPlot[0].setData(numberInResources[0], typeInPlots[0], {boardCross[0], boardCross[3], boardCross[4], boardCross[7], boardCross[8], boardCross[12]});
     boardPlot[1].setData(numberInResources[1], typeInPlots[1], {boardCross[1], boardCross[4], boardCross[5], boardCross[8], boardCross[9], boardCross[13]});
     boardPlot[2].setData(numberInResources[2], typeInPlots[2], {boardCross[2], boardCross[5], boardCross[6], boardCross[9], boardCross[10], boardCross[14]});
@@ -136,5 +144,9 @@ Board::Board()
     boardPlot[17].setData(numberInResources[17], typeInPlots[17], {boardCross[40], boardCross[44], boardCross[45], boardCross[48], boardCross[49], boardCross[52]});
     boardPlot[18].setData(numberInResources[18], typeInPlots[18], {boardCross[41], boardCross[45], boardCross[46], boardCross[49], boardCross[50], boardCross[53]});
 
-    boardPath.resize(54, std::vector<int>(54, noneP));
+    boardPath = vector<vector<int>>(54, vector<int>(54, noneP));
+}
+
+Board::~Board()
+{
 }

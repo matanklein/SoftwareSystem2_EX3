@@ -1,3 +1,7 @@
+/*
+   email- matank214@gmail.com
+*/
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -20,7 +24,7 @@ int main(){
         cout << "Choose the place for the settlement for Player " << i+1 << endl;
         int place;
         cin >> place;
-        catan.buildSettlement(catan.Players[i], place);
+        catan.buildSettlement(catan.getPlayer(i), place);
 
         cout << "Choose the place for the road for Player " << i+1 << endl;
         int l, m;
@@ -45,7 +49,7 @@ int main(){
     // first round
     for(size_t i = 0; i < 3; i++){
         catan.rollDice();
-        catan.Players[i].printResources();
+        catan.Players[i]->printResources();
         int choice = -1;
         while(choice != 0){
             cout << "Player " << i+1 << " choose an option: " << endl;

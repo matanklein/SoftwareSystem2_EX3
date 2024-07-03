@@ -1,3 +1,7 @@
+/*
+   email- matank214@gmail.com
+*/
+
 #include "Plot.hpp"
 
 void Plot::setData(int numberCircle, int type,const vector<Cross>& crossSections)
@@ -17,11 +21,11 @@ void Plot::getResoursesOnRoll(int roll)
             {
                 if (crossSections[i].getId() == city)
                 {
-                    crossSections[i].getOwner().addResource(type, 2);
+                    crossSections[i].getOwner()->addResource(type, 2);
                 }
                 else
                 {
-                    crossSections[i].getOwner().addResource(type);
+                    crossSections[i].getOwner()->addResource(type);
                 }
             }
         }
@@ -41,6 +45,5 @@ int Plot::getType()
 
 Plot::~Plot()
 {
-    crossSections.clear();
 }
 

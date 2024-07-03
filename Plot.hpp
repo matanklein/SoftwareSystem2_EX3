@@ -1,3 +1,7 @@
+/*
+   email- matank214@gmail.com
+*/
+
 #ifndef PLOT_HPP
 #define PLOT_HPP
 
@@ -30,6 +34,8 @@ class Plot{
         */
         void getResoursesOnRoll(int roll);
         int getType();
+
+        //void operator=(Plot& plot);
 };
 
 #endif

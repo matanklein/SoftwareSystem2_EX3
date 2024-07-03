@@ -1,3 +1,7 @@
+/*
+   email- matank214@gmail.com
+*/
+
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
@@ -23,8 +27,11 @@ private:
 public:
     Player();
     Player(string name, int id);
-    ~Player(){
-    }
+    Player(const Player& player);
+    ~Player();
+
+    bool operator==(const Player& player);
+    bool operator!=(const Player& player);
 
     void addResource(int resource);
     void addResource(int resource, int amount);
@@ -83,7 +90,7 @@ public:
 
     void printResources();
 
-    void operator=(const Player& player);
+    //void operator=(const Player& player);
 
 };
 

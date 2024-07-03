@@ -1,3 +1,7 @@
+/*
+   email- matank214@gmail.com
+*/
+
 #ifndef CARD_HPP
 #define CARD_HPP
 
@@ -11,7 +15,7 @@ class Card{
         static int avail;
     public:
         Card(){};
-        ~Card(){};
+        virtual ~Card(){};
         static int getAvailable();
         static void setAvailable(int avail);
         void decreaseAvailable();
@@ -25,6 +29,7 @@ class promotionCard : public Card{
     public:
         virtual void use() = 0;
         virtual string getType() = 0;
+        virtual ~promotionCard(){};
 };
 
 class roadBuildingCard : public promotionCard{

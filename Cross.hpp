@@ -1,3 +1,7 @@
+/*
+   email- matank214@gmail.com
+*/
+
 #ifndef CROSS_HPP
 #define CROSS_HPP
 
@@ -9,21 +13,20 @@ using namespace std;
 class Cross
 {
 private:
-    Player& owner;
+    Player* owner;
     bool hasOwner;
     vector<int> neighborsCross;
     int id; // the serial number of the cross
     int type; // settlement, city, empty
 
 public:
-    Cross();
-    Cross(const Cross& cross);
+    Cross() : owner(nullptr), hasOwner(false), id(0), type(isempty){};
     void setData(vector<int> neighborsCross, int id);
-    Player& getOwner(){
+    Player* getOwner(){
         return owner;
     }
-    void setOwner(Player& owner){
-        this->owner = owner;
+    void setOwner(Player* ownerp){
+        this->owner = ownerp;
         this->hasOwner = true;
     }
     bool getHasOwner(){
@@ -43,7 +46,6 @@ public:
         return neighborsCross;
     }
     ~Cross();
-    Cross& operator=(const Cross& cross);
 };
 
 #endif

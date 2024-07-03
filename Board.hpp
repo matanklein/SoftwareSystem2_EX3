@@ -1,3 +1,7 @@
+/*
+   email- matank214@gmail.com
+*/
+
 #ifndef BOARD_HPP
 #define BOARD_HPP
 
@@ -22,9 +26,7 @@ private:
 public:
     Board();
 
-    ~Board()
-    {
-    }
+    ~Board();
 
     int getNumberOfPlots()
     {
@@ -41,12 +43,12 @@ public:
         return boardPath.size();
     }
 
-    vector<Plot> &getPlots()
+    vector<Plot>& getPlots()
     {
         return boardPlot;
     }
 
-    vector<Cross> &getCrosses()
+    vector<Cross>& getCrosses()
     {
         return boardCross;
     }
@@ -61,6 +63,24 @@ public:
         boardPath[i][j] = value;
         boardPath[j][i] = value;
     }
+
+    void setCross(int i, int type, Player* owner)
+    {
+        cout << "Setting cross " << i << " to type " << type << " with owner " << owner->getName() << endl;
+        boardCross[i].setType(type);
+        boardCross[i].setOwner(owner);
+    }
+
+    void setCross(int i, int type)
+    {
+        boardCross[i].setType(type);
+    }
+
+    void putResourceInPlotWithRoll(int j, int roll)
+    {
+        boardPlot[j].getResoursesOnRoll(roll);
+    }
+   
 };
 
 #endif

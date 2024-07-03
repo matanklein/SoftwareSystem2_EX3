@@ -1,3 +1,7 @@
+/*
+   email- matank214@gmail.com
+*/
+
 #include "Card.hpp"
 
 int Card::avail = 0;
