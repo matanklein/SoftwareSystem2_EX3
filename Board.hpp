@@ -58,6 +58,11 @@ public:
         return boardPath;
     }
 
+    int getPath(int i, int j)
+    {
+        return boardPath[i][j];
+    }
+
     void setPath(int i, int j, int value)
     {
         boardPath[i][j] = value;

@@ -121,6 +121,5 @@ int main(){
             }
         }
     }
-    delete &catan;
     return 0;
 }
