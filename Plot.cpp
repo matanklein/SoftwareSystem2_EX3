@@ -4,7 +4,7 @@
 
 #include "Plot.hpp"
 
-void Plot::setData(int numberCircle, int type, const vector<Cross *> crossSections)// perhaps because u delete the original so it will be empty
+void Plot::setData(int numberCircle, int type, const vector<Cross *> crossSections)
 {
     for(size_t i = 0; i < crossSections.size(); i++){
         this->crossSections.push_back(crossSections[i]);
@@ -34,8 +34,6 @@ void Plot::getResoursesOnRoll(int roll, vector<Player *> &players)
                     int id = crossSections[i]->getOwner()->getId();
                     players[id - 1]->addResource(type);
                 }
-            }else{
-                cout << "Cross section " << i << " has no owner on plot: " << type << endl;    
             }
         }
     }

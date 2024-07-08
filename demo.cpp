@@ -29,7 +29,7 @@ int main(){
         cout << "Choose the place for the road for Player " << i+1 << endl;
         int l, m;
         cin >> l >> m;
-        catan.buildRoad(catan.Players[i], l, m);
+        catan.buildRoad(catan.getPlayer(i), l, m);
         cout << catan.getPlayer(i)->getName() << " has " << catan.getPlayer(i)->getPoints() << " points" << endl;
     }
 
@@ -37,12 +37,12 @@ int main(){
         cout << "Choose place for the second settlement of Player " << i+1 << endl;
         int place;
         cin >> place;
-        catan.buildSettlement(catan.Players[i], place);
+        catan.buildSettlement(catan.getPlayer(i), place);
 
         cout << "Choose place for the second road of player  " << i+1 << endl;
         int l, m;
         cin >> l >> m;
-        catan.buildRoad(catan.Players[i], l, m);
+        catan.buildRoad(catan.getPlayer(i), l, m);
         cout << catan.getPlayer(i)->getName() << " has " << catan.getPlayer(i)->getPoints() << " points" << endl;
     }
 
@@ -54,7 +54,7 @@ int main(){
     // first round
     for(size_t i = 0; i < 3; i++){
         catan.rollDice();
-        catan.Players[i]->printResources();
+        catan.getPlayer(i)->printResources();
         int choice = -1;
         while(choice != 0){
             cout << "Player " << i+1 << " choose an option: " << endl;
@@ -74,26 +74,26 @@ int main(){
                     cout << "Choose the place for the road" << endl;
                     int l, m;
                     cin >> l >> m;
-                    catan.buildRoad(catan.Players[i], l, m);
+                    catan.buildRoad(catan.getPlayer(i), l, m);
                     break;
                 case 2:
                     cout << "Choose the place for the settlement" << endl;
                     cin >> place;
-                    catan.buildSettlement(catan.Players[i], place);
+                    catan.buildSettlement(catan.getPlayer(i), place);
                     break;
                 case 3:
                     cout << "Choose the place for the city" << endl;
                     cin >> place;
-                    catan.buildCity(catan.Players[i], place);
+                    catan.buildCity(catan.getPlayer(i), place);
                     break;
                 case 4:
-                    catan.buyDevelopmentCard(catan.Players[i]);
+                    catan.buyDevelopmentCard(catan.getPlayer(i));
                     break;
                 case 5:
                     cout << "Choose the development card to use" << endl;
                     int card;
                     cin >> card;
-                    catan.useDevelopmentCard(catan.Players[i], card);
+                    catan.useDevelopmentCard(catan.getPlayer(i), card);
                     break;
                 case 6:
                     cout << "Choose the player to trade with" << endl;
@@ -111,7 +111,7 @@ int main(){
                     cout << "Choose the amount to take" << endl;
                     int amount2;
                     cin >> amount2;
-                    catan.trade(catan.Players[i], catan.Players[player-1], resource1, amount1, resource2, amount2);
+                    catan.trade(catan.getPlayer(i), catan.getPlayer(player - 1), resource1, amount1, resource2, amount2);
                     break;
                 case 0:
                     catan.endTurn();
@@ -121,7 +121,6 @@ int main(){
             }
         }
     }
-
-
+    delete &catan;
     return 0;
 }

@@ -19,15 +19,16 @@ using namespace std;
 
 
 class Catan{
-    Player* p1;
-    Player* p2;
-    Player* p3;
-    Board board;
+    // Player* p1;
+    // Player* p2;
+    // Player* p3;
+    vector<Player*> Players;
+    Board* board;
     int turn;
     bool isGameEnd;
 
     public:
-        vector<Player*> Players;
+        
         
         Catan(string name1, string name2, string name3);
         ~Catan();

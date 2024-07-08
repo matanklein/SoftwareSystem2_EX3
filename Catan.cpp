@@ -9,14 +9,11 @@ using namespace std;
 
 Catan::Catan(string name1, string name2, string name3)
 {
-    p1 = new Player(name1,1);
-    p2 = new Player(name2,2);
-    p3 = new Player(name3,3);
+    Players.push_back(new Player(name1,1));
+    Players.push_back(new Player(name2,2));
+    Players.push_back(new Player(name3,3));
     turn = 0;
-    Players.push_back(p1);
-    Players.push_back(p2);
-    Players.push_back(p3);
-    board = Board();
+    board = new Board();
     isGameEnd = false;
     
     srand(static_cast<unsigned int>(time(0)));
@@ -41,10 +38,10 @@ void Catan::rollDice()
         }
     }
 
-    vector<Plot*> plots = board.getPlots();
+    vector<Plot*> plots = board->getPlots();
 
     for(size_t i = 0; i < plots.size(); i++){
-        board.putResourceInPlotWithRoll(i, sum, Players);
+        board->putResourceInPlotWithRoll(i, sum, Players);
     }
     
 }
@@ -66,12 +63,12 @@ void Catan::endTurn()
 
 void Catan::buildSettlement(Player* player, int place){
 
-    if(place < 0 || place >= board.getNumberOfCrosses()){
+    if(place < 0 || place >= board->getNumberOfCrosses()){
         cout << "The place is out of bounds" << endl;
         return;
     }
 
-    vector<Cross> crosses = board.getCrosses();
+    vector<Cross> crosses = board->getCrosses();
     // for(size_t i = 0; i < crosses.size(); i++){
     //     cout << "cross " << i << " is " << crosses[i].getHasOwner() << endl;
     // }
@@ -82,7 +79,7 @@ void Catan::buildSettlement(Player* player, int place){
     }
 
     player->buildSettlement();
-    board.setCross(place, settlement, player);
+    board->setCross(place, settlement, player);
 
 
     // for(size_t i = 0; i < crosses.size(); i++){
@@ -92,12 +89,12 @@ void Catan::buildSettlement(Player* player, int place){
 
 void Catan::buildCity(Player* player, int place){
 
-    if(place < 0 || place >= board.getNumberOfCrosses()){
+    if(place < 0 || place >= board->getNumberOfCrosses()){
         cout << "The place is out of bounds" << endl;
         throw "build city out of bounds";
     }
 
-    vector<Cross> crosses = board.getCrosses();
+    vector<Cross> crosses = board->getCrosses();
     if(!crosses[place].getHasOwner()){
         cout << "The place is not taken by anyone" << endl;
         throw "build city on empty place";
@@ -109,7 +106,7 @@ void Catan::buildCity(Player* player, int place){
     }
 
     player->buildCity();
-    board.setCross(place, city);
+    board->setCross(place, city);
 }
 
 void Catan::startGame(){
@@ -121,14 +118,14 @@ void Catan::startGame(){
     }
 
     // run once on the board and give each player resources based on their settlements
-    vector<Plot*> plots = board.getPlots();
+    vector<Plot*> plots = board->getPlots();
     for(int i = 2; i <= 12 ; i++){ // run for all the possible rolls
         if(i == 7){ // skip the 7 roll
             continue;
         }
 
         for(size_t j = 0; j < plots.size(); j++){
-            board.putResourceInPlotWithRoll(j, i, Players);
+            board->putResourceInPlotWithRoll(j, i, Players);
         }
 
     }
@@ -176,12 +173,12 @@ void Catan::trade(Player* player1, Player* player2, int resource1,int amount1, i
 }
 
 void Catan::buildRoad(Player* player, int i, int j){
-    if(i < 0 || i >= board.getNumberOfCrosses() || j < 0 || j >= board.getNumberOfCrosses()){
+    if(i < 0 || i >= board->getNumberOfCrosses() || j < 0 || j >= board->getNumberOfCrosses()){
         cout << "The path is out of bounds" << endl;
         throw "add path failed";
     }
 
-    vector<vector<int>> paths = board.getPaths();
+    vector<vector<int>> paths = board->getPaths();
     if(paths[i][j] != noneP || paths[j][i] != noneP){
         cout << "The path is already taken" << endl;
         throw "add path failed";
@@ -190,7 +187,7 @@ void Catan::buildRoad(Player* player, int i, int j){
     bool isPathConnected = false;
     bool isSettlementConnected = false;
 
-    vector<Cross> crosses = board.getCrosses();
+    vector<Cross> crosses = board->getCrosses();
     
     // check if the path is connected to player's settlements
     if(crosses[i].getHasOwner() == true && crosses[i].getOwner() == player){
@@ -226,8 +223,8 @@ void Catan::buildRoad(Player* player, int i, int j){
     }
 
     player->buildRoad();
-    board.setPath(i, j, player->getId());
-    board.setPath(j, i, player->getId());
+    board->setPath(i, j, player->getId());
+    board->setPath(j, i, player->getId());
 }
 
 void Catan::buyDevelopmentCard(Player* player){
@@ -351,6 +348,10 @@ void Catan::Monopoly(Player* player, int resource){
 
 Catan::~Catan()
 {
+    for(size_t i = 0; i < Players.size(); i++){
+        delete Players[i];
+    }
+    delete board;
 }
 
 Player* Catan::getPlayer(int num){
